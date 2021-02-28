@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/27 04:34:03 by user42            #+#    #+#              #
-#    Updated: 2021/02/28 01:09:04 by user42           ###   ########.fr        #
+#    Updated: 2021/02/28 02:32:29 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ TESTER = tester
 
 SRC_DIR = srcs
 
-SRC = $(SRC_DIR)/ft_strlen.s
+SRC = $(wildcard $(SRC_DIR)/*.s)
 
 INCLUDE_DIR = -I include
 
@@ -38,7 +38,7 @@ CC = gcc
 
 RM = /bin/rm
 
-CFLAGS = -Wall -Wextra -Werror -g -L -lasm
+CFLAGS = -Wall -Wextra -Werror -g -L. -lasm
 
 ifeq ($(SANITIZE_L), true)
 	CFLAGS += -fsanitize=leak
@@ -61,7 +61,8 @@ all: $(NAME)
 test: $(NAME)
 	$(CC) $(CFLAGS) $(SRC_DIR)/main.c $(NAME) -o $(TESTER)
 
-clean: $(RM) $(OBJ)
+clean:
+	$(RM) -rf $(OBJ)
 	$(RM) -rf $(OBJ_DIR)
 
 fclean: clean
