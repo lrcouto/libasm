@@ -1,3 +1,5 @@
 libasm.code-workspace
 *.o
 objs
+libasm.a
+tester

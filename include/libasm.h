@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 22:30:18 by user42            #+#    #+#             */
-/*   Updated: 2021/02/28 05:09:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/28 07:19:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ Sed porta a lectus quis ultrices."
 
 size_t	ft_strlen(const char *s);
 char	*ft_strcpy(char *dest, const char *src);
+int		ft_strcmp(const char *str1, const char *str2);
 
 #endif
