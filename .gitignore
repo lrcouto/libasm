@@ -1,2 +1,3 @@
 libasm.code-workspace
 *.o
+objs

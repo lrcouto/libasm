@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/27 04:34:03 by user42            #+#    #+#              #
-#    Updated: 2021/02/27 21:38:03 by user42           ###   ########.fr        #
+#    Updated: 2021/02/28 01:09:04 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,19 +24,21 @@ INCLUDE = $(INCLUDE_DIR)/libasm.h
 
 OBJ_DIR = objs
 
-OBJ = $(patsubst %.s, ${OBJ_DIR}/%.o, ${SRC})
+OBJ = $(subst $(SRC_DIR),$(OBJ_DIR),$(SRC:.s=.o))
 
 OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
-ASM_COMPILER = nasm -f macho64 -g
+ASSEMBLER = nasm -f macho64 -g
 else
-ASM_COMPILER = nasm -f elf64 -g
+ASSEMBLER = nasm -f elf64 -g
 endif
 
 CC = gcc
 
-CFLAGS = -Wall - Wextra -Werror -lasm -L . -g3
+RM = /bin/rm
+
+CFLAGS = -Wall -Wextra -Werror -g -L -lasm
 
 ifeq ($(SANITIZE_L), true)
 	CFLAGS += -fsanitize=leak
@@ -46,27 +48,26 @@ ifeq ($(SANITIZE_A), true)
 	CFLAGS += -fsanitize=address
 endif
 
-RM = rm -rf
+$(NAME): $(OBJ)
+	ar -rcs $(NAME) $(OBJ)
+	ranlib $(NAME)
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.s
+	mkdir -p $(OBJ_DIR)
+	$(ASSEMBLER) $< -o $@
 
 all: $(NAME)
 
-$(OBJ_DIR)/%.o :	$(SRC_DIR)/%.s
-					@mkdir -p $(OBJ_DIR)
-					@$(ASM_COMPILER) $< -o $@
+test: $(NAME)
+	$(CC) $(CFLAGS) $(SRC_DIR)/main.c $(NAME) -o $(TESTER)
 
-$(NAME):	$(OBJ)
-			@ar -rcs $(NAME) $(OBJ)
+clean: $(RM) $(OBJ)
+	$(RM) -rf $(OBJ_DIR)
 
-test:		$(NAME) ${SRC_DIR}/main.c
-			$(CC) $(CFLAGS) $(INCLUDE) -o $(TESTER)
+fclean: clean
+	$(RM) -rf $(NAME)
+	$(RM) -rf $(TESTER)
 
-clean:		@$(RM) $(OBJ)
-			@$(RM) $(OBJ_DIR)
+re: fclean all
 
-fclean:		clean
-			@$(RM) $(NAME)
-			@$(RM) $(TESTER)
-
-re:			fclean all
-
-.PHONY:		all clean fclean re
+.PHONY: all clean fclean re
