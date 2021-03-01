@@ -14,5 +14,7 @@ February 26th 2021 - More studying, a couple more tests, and I think I got enoug
 
 February 27th 2021 - Somewhat productive day - lost a lot of time struggling with my Makefile, but managed to set it up properly and get three of the six required functions done and tested. Not too bad. It's 4am and I'm making stupid syntax errors, so it's time to sleep.
 
+February 28th 2021 - Finished writing all the six functions. Still need to write tests for ft_strdup and figure out how to set up tests for error conditions. Spent all night trying to figure out a weird behavior on ft_read and now that I solved the mystery I can go to bed.
+
 ---
 </details>

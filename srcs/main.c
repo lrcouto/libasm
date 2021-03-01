@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 23:23:07 by user42            #+#    #+#             */
-/*   Updated: 2021/03/01 06:48:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/01 07:57:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static void	test_strdup(void)
 
 static void	test_read(void)
 {
-	int		fd;
+	int		fd1;
+	int		fd2;
 	size_t	ret;
 	char	buffer[1024];
 
-	fd = open("readtext.txt", O_RDONLY);
+	fd1 = open("readtext.txt", O_RDONLY);
+	fd2 = open("readtext.txt", O_RDONLY);
 	memset(buffer, 0, 1024);
 	printf("===================\nTesting FT_READ\n===================\n\n");
 	printf("*****\nReading from STDIN:\n*****\n");
@@ -38,14 +40,15 @@ static void	test_read(void)
 	printf("\n\n");
 	printf("*****\nReading from a file:\n*****\n");
 	printf("Original read:\n");
-	ret = read(fd, buffer, 1024);
+	ret = read(fd1, buffer, 1024);
 	printf("%s\nReturn value: %zu\n", buffer, ret);
 	printf("errno: %d - %s\n", errno, strerror(errno));
 	printf("ft_read:\n");
-	ret = ft_read(fd, buffer, 1024);
+	ret = ft_read(fd2, buffer, 1024);
 	printf("%s\nReturn value: %zu\n", buffer, ret);
 	printf("errno: %d - %s\n", errno, strerror(errno));
-	close(fd);
+	close(fd1);
+	close(fd2);
 	printf("\n\n");
 }
 
