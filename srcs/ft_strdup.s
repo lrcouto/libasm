@@ -32,10 +32,10 @@ ft_strdup:
 	ret
 
 error:
-	neg		rax					; negate rax.
-	push	rax					; put rax into the top of stack
-	call	__errno_location	; call error number
-	pop		rbx					; pop rbx out of the top of the stack.
-	mov		[rax], rbx			; set error in rax pointer.
-	mov		rax, -1				; set return to -1
+	neg rax					; negate rax.
+	push rax				; put rax into the top of stack
+	call __errno_location	; call error number
+	pop rdi					; pop rdi out of the top of the stack.
+	mov [rax], rdi			; set error in rax pointer.
+	mov rax, -1				; set return to -1
 	ret

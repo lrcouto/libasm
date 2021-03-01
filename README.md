@@ -18,5 +18,7 @@ February 28th 2021 - Finished writing all the six functions. Still need to write
 
 March 1st 2021 - Finished writing all the test functions and, unless I decide to be incredibly pedantic, I'm done with this project.
 
+March 1st 2021 pt. 2 - I am incredibly pedantic, poked around with -fsanitize flags and found a write access violation causing a segfault. Fixed it, and now I'm done for real. :triumph:
+
 ---
 </details>
