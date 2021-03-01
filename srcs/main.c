@@ -6,18 +6,90 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 23:23:07 by user42            #+#    #+#             */
-/*   Updated: 2021/02/28 07:37:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/01 06:48:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libasm.h"
+
+static void	test_strdup(void)
+{
+	
+}
+
+static void	test_read(void)
+{
+	int		fd;
+	size_t	ret;
+	char	buffer[1024];
+
+	fd = open("readtext.txt", O_RDONLY);
+	memset(buffer, 0, 1024);
+	printf("===================\nTesting FT_READ\n===================\n\n");
+	printf("*****\nReading from STDIN:\n*****\n");
+	printf("Original read:\n");
+	ret = read(1, buffer, 1024);
+	printf("You wrote: %sReturn value: %zu\n", buffer, ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("ft_read:\n");
+	ret = ft_read(1, buffer, 1024);
+	printf("You wrote: %sReturn value: %zu\n", buffer, ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("\n\n");
+	printf("*****\nReading from a file:\n*****\n");
+	printf("Original read:\n");
+	ret = read(fd, buffer, 1024);
+	printf("%s\nReturn value: %zu\n", buffer, ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("ft_read:\n");
+	ret = ft_read(fd, buffer, 1024);
+	printf("%s\nReturn value: %zu\n", buffer, ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	close(fd);
+	printf("\n\n");
+}
+
+static void	test_write(void)
+{
+	int		fd1;
+	int		fd2;
+	size_t	ret;
+	
+	fd1 = open("write.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	fd2 = open("ft_write.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	printf("===================\nTesting FT_WRITE\n===================\n\n");
+	printf("*****\nWriting on STDOUT:\n*****\n");
+	printf("\nTEXT: 'Lorem ipsum dolor sit amet'\n\n");
+	printf("Original write:\n");
+	ret = write(1,"Lorem ipsum dolor sit amet", 26);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("ft_write:\n");
+	ret = ft_write(1,"Lorem ipsum dolor sit amet", 26);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("\n\n");
+	printf("*****\nWriting to an external file:\n*****\n");
+	printf("\nTEXT: 'Lorem ipsum dolor sit amet'\n\n");
+	printf("Check your files for write.txt");
+	ret = write(fd1,"Lorem ipsum dolor sit amet", 26);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("Check your files for ft_write.txt");
+	ret = ft_write(fd2,"Lorem ipsum dolor sit amet", 26);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n", errno, strerror(errno));
+	close(fd1);
+	close(fd2);
+	printf("\n\n");
+}
 
 static void	test_strcmp(void)
 {
 	const char a[] = "Lorem";
 	const char b[] = "Lorem ipsum dolor sit amet";
 
-	printf("============\nTesting FT_STRCMP\n============\n\n");
+	printf("===================\nTesting FT_STRCMP\n===================\n\n");
 	printf("*****\nBasic test 1:\n*****\n");
 	printf("\nSTRING 1: 'Lorem' | STRING 2 : 'Lorem ipsum dolor sit amet'\n\n");
 	printf("Original strcmp: %d\nft_strcmp: %d\n", strcmp(a, b), ft_strcmp(a, b));
@@ -53,7 +125,7 @@ static void	test_strcpy(void)
 	char oc[827];
 	char mc[827];
 
-	printf("============\nTesting FT_STRCPY\n============\n\n");
+	printf("===================\nTesting FT_STRCPY\n===================\n\n");
 	printf("*****\nBasic test:\n*****\n");
 	printf("\nSTRING: 'Hello, World!'\n\nOriginal strcpy: %s\nft_strcpy: %s\n",
 	strcpy(oa, "Hello, World!"), ft_strcpy(ma,"Hello, World!"));
@@ -68,9 +140,9 @@ static void	test_strcpy(void)
 	printf("\n\n");
 }
 
-int		main(void)
+static void	test_strlen(void)
 {
-	printf("\n============\nTesting FT_STRLEN\n============\n\n");
+	printf("\n===================\nTesting FT_STRLEN\n===================\n\n");
 	printf("*****\nBasic test:\n*****\n");
 	printf("\nSTRING: 'Hello, World!'\n\nOriginal strlen: %zu\nft_strlen: %zu\n",
 	strlen("Hello, World!"), ft_strlen("Hello, World!"));
@@ -83,7 +155,15 @@ int		main(void)
 	printf("\nSTRING: '%s'\n\nOriginal strlen: %zu\nft_strlen: %zu\n",
 	LIPSUM, strlen(LIPSUM), ft_strlen(LIPSUM));
 	printf("\n\n");
+}
+
+int			main(void)
+{
+	test_strlen();
 	test_strcpy();
 	test_strcmp();
+	test_write();
+	test_read();
+	test_strdup();
 	return (0);
 }

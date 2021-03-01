@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 22:30:18 by user42            #+#    #+#             */
-/*   Updated: 2021/02/28 07:19:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/01 05:46:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIBASM_H
 
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <sys/errno.h>
 # include <unistd.h>
@@ -38,5 +40,7 @@ Sed porta a lectus quis ultrices."
 size_t	ft_strlen(const char *s);
 char	*ft_strcpy(char *dest, const char *src);
 int		ft_strcmp(const char *str1, const char *str2);
+size_t	ft_write(int fd, void* buf, size_t cnt);
+size_t	ft_read(int fd, const void* buf, size_t cnt);
 
 #endif

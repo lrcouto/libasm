@@ -3,3 +3,6 @@ libasm.code-workspace
 objs
 libasm.a
 tester
+write.txt
+ft_write.txt
+.vscode
