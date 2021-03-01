@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libasm.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lcouto <lcouto@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 22:30:18 by user42            #+#    #+#             */
-/*   Updated: 2021/03/01 05:46:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/01 18:20:00 by lcouto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ char	*ft_strcpy(char *dest, const char *src);
 int		ft_strcmp(const char *str1, const char *str2);
 size_t	ft_write(int fd, void* buf, size_t cnt);
 size_t	ft_read(int fd, const void* buf, size_t cnt);
+char	*ft_strdup(const char *string);
 
 #endif

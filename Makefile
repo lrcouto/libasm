@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: lcouto <lcouto@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/27 04:34:03 by user42            #+#    #+#              #
-#    Updated: 2021/02/28 02:32:29 by user42           ###   ########.fr        #
+#    Updated: 2021/03/01 19:39:50 by lcouto           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ else
 ASSEMBLER = nasm -f elf64 -g
 endif
 
-CC = gcc
+CC = clang
 
 RM = /bin/rm
 

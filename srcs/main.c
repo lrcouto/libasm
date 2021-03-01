@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lcouto <lcouto@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 23:23:07 by user42            #+#    #+#             */
-/*   Updated: 2021/03/01 07:57:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/01 20:37:04 by lcouto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,43 @@
 
 static void	test_strdup(void)
 {
-	
+	char	*ret1;
+	char	*ret2;
+
+	printf("===================\nTesting FT_STRDUP\n===================\n\n");
+	printf("*****\nBasic test:\n*****\n");
+	ret1 = strdup("Hello, World!");
+	ret2 = ft_strdup("Hello, World!");
+	printf("\nSTRING: 'Hello, World!'\n\n");
+	printf("Original strdup: %s\n", ret1);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("ft_strdup: %s\n", ret2);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("\n\n");
+	free(ret1);
+	free(ret2);
+	printf("*****\nEmpty string test:\n*****\n");
+	ret1 = strdup("");
+	ret2 = ft_strdup("");
+	printf("\nSTRING: ''\n\n");
+	printf("Original strdup: %s\n", ret1);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("ft_strdup: %s\n", ret2);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("\n\n");
+	free(ret1);
+	free(ret2);
+	printf("*****\nVery long string test:\n*****\n");
+	ret1 = strdup(LIPSUM);
+	ret2 = ft_strdup(LIPSUM);
+	printf("\nSTRING: %s\n\n", LIPSUM);
+	printf("Original strdup: %s\n", ret1);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("ft_strdup: %s\n", ret2);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("\n\n");
+	free(ret1);
+	free(ret2);
 }
 
 static void	test_read(void)
@@ -32,21 +68,21 @@ static void	test_read(void)
 	printf("Original read:\n");
 	ret = read(1, buffer, 1024);
 	printf("You wrote: %sReturn value: %zu\n", buffer, ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("ft_read:\n");
 	ret = ft_read(1, buffer, 1024);
 	printf("You wrote: %sReturn value: %zu\n", buffer, ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("\n\n");
 	printf("*****\nReading from a file:\n*****\n");
 	printf("Original read:\n");
 	ret = read(fd1, buffer, 1024);
 	printf("%s\nReturn value: %zu\n", buffer, ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("ft_read:\n");
 	ret = ft_read(fd2, buffer, 1024);
 	printf("%s\nReturn value: %zu\n", buffer, ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	close(fd1);
 	close(fd2);
 	printf("\n\n");
@@ -66,22 +102,22 @@ static void	test_write(void)
 	printf("Original write:\n");
 	ret = write(1,"Lorem ipsum dolor sit amet", 26);
 	printf(" | return value: %zu\n", ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("ft_write:\n");
 	ret = ft_write(1,"Lorem ipsum dolor sit amet", 26);
 	printf(" | return value: %zu\n", ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("\n\n");
 	printf("*****\nWriting to an external file:\n*****\n");
 	printf("\nTEXT: 'Lorem ipsum dolor sit amet'\n\n");
 	printf("Check your files for write.txt");
 	ret = write(fd1,"Lorem ipsum dolor sit amet", 26);
 	printf(" | return value: %zu\n", ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("Check your files for ft_write.txt");
 	ret = ft_write(fd2,"Lorem ipsum dolor sit amet", 26);
 	printf(" | return value: %zu\n", ret);
-	printf("errno: %d - %s\n", errno, strerror(errno));
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	close(fd1);
 	close(fd2);
 	printf("\n\n");
