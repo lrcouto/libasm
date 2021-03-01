@@ -6,7 +6,7 @@
 /*   By: lcouto <lcouto@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 23:23:07 by user42            #+#    #+#             */
-/*   Updated: 2021/03/01 20:37:04 by lcouto           ###   ########.fr       */
+/*   Updated: 2021/03/01 22:01:31 by lcouto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	test_strdup(void)
 	char	*ret1;
 	char	*ret2;
 
+	errno = 0;
 	printf("===================\nTesting FT_STRDUP\n===================\n\n");
 	printf("*****\nBasic test:\n*****\n");
 	ret1 = strdup("Hello, World!");
@@ -60,11 +61,12 @@ static void	test_read(void)
 	size_t	ret;
 	char	buffer[1024];
 
+	errno = 0;
 	fd1 = open("readtext.txt", O_RDONLY);
 	fd2 = open("readtext.txt", O_RDONLY);
 	memset(buffer, 0, 1024);
 	printf("===================\nTesting FT_READ\n===================\n\n");
-	printf("*****\nReading from STDIN:\n*****\n");
+	printf("*****\nReading from STDIN:\n*****\n\n");
 	printf("Original read:\n");
 	ret = read(1, buffer, 1024);
 	printf("You wrote: %sReturn value: %zu\n", buffer, ret);
@@ -74,7 +76,7 @@ static void	test_read(void)
 	printf("You wrote: %sReturn value: %zu\n", buffer, ret);
 	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("\n\n");
-	printf("*****\nReading from a file:\n*****\n");
+	printf("*****\nReading from a file:\n*****\n\n");
 	printf("Original read:\n");
 	ret = read(fd1, buffer, 1024);
 	printf("%s\nReturn value: %zu\n", buffer, ret);
@@ -86,6 +88,16 @@ static void	test_read(void)
 	close(fd1);
 	close(fd2);
 	printf("\n\n");
+	printf("*****\nReading from non-existent file:\n*****\n\n");
+	printf("Original read");
+	ret = read(-7, buffer, 1024);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("ft_read");
+	ret = ft_read(-7, buffer, 1024);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("\n\n");
 }
 
 static void	test_write(void)
@@ -94,6 +106,7 @@ static void	test_write(void)
 	int		fd2;
 	size_t	ret;
 	
+	errno = 0;
 	fd1 = open("write.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	fd2 = open("ft_write.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	printf("===================\nTesting FT_WRITE\n===================\n\n");
@@ -120,6 +133,17 @@ static void	test_write(void)
 	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	close(fd1);
 	close(fd2);
+	printf("\n");
+	printf("*****\nWriting to non-existent file:\n*****\n");
+	printf("\nTEXT: There is no text.\n\n");
+	printf("Original write");
+	ret = write(-7,"Lorem ipsum dolor sit amet", 26);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
+	printf("ft_write");
+	ret = ft_write(-7,"Lorem ipsum dolor sit amet", 26);
+	printf(" | return value: %zu\n", ret);
+	printf("errno: %d - %s\n\n", errno, strerror(errno));
 	printf("\n\n");
 }
 
@@ -196,7 +220,7 @@ static void	test_strlen(void)
 	printf("\n\n");
 }
 
-int			main(void)
+static void	test_all(void)
 {
 	test_strlen();
 	test_strcpy();
@@ -204,5 +228,30 @@ int			main(void)
 	test_write();
 	test_read();
 	test_strdup();
+}
+
+int			main(int argc, char** argv)
+{
+	if (argc == 2)
+	{
+		if ((strcmp(argv[1], "strlen") == 0))
+			test_strlen();
+		else if ((strcmp(argv[1], "strcpy") == 0))
+			test_strcpy();
+		else if ((strcmp(argv[1], "strcmp") == 0))
+			test_strcmp();
+		else if ((strcmp(argv[1], "write") == 0))
+			test_write();
+		else if ((strcmp(argv[1], "read") == 0))
+			test_read();
+		else if ((strcmp(argv[1], "strdup") == 0))
+			test_strdup();
+		else if ((strcmp(argv[1], "all") == 0))
+			test_all();
+		else
+			printf("Please specify which function you want to test.\n");
+	}
+	else if (argc == 1 || argc > 2)
+		printf("Please enter function name OR 'all' to start testing.\n");
 	return (0);
 }

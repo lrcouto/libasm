@@ -2,7 +2,7 @@ libasm.code-workspace
 *.o
 objs
 libasm.a
-tester
+test
 write.txt
 ft_write.txt
 .vscode

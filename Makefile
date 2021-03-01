@@ -6,13 +6,13 @@
 #    By: lcouto <lcouto@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/27 04:34:03 by user42            #+#    #+#              #
-#    Updated: 2021/03/01 19:39:50 by lcouto           ###   ########.fr        #
+#    Updated: 2021/03/01 21:39:06 by lcouto           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libasm.a
 
-TESTER = tester
+TESTER = test
 
 SRC_DIR = srcs
 
@@ -68,6 +68,8 @@ clean:
 fclean: clean
 	$(RM) -rf $(NAME)
 	$(RM) -rf $(TESTER)
+	$(RM) -rf write.txt
+	$(RM) -rf ft_write.txt
 
 re: fclean all
 

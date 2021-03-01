@@ -16,5 +16,7 @@ February 27th 2021 - Somewhat productive day - lost a lot of time struggling wit
 
 February 28th 2021 - Finished writing all the six functions. Still need to write tests for ft_strdup and figure out how to set up tests for error conditions. Spent all night trying to figure out a weird behavior on ft_read and now that I solved the mystery I can go to bed.
 
+March 1st 2021 - Finished writing all the test functions and, unless I decide to be incredibly pedantic, I'm done with this project.
+
 ---
 </details>
